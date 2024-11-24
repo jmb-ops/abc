@@ -1,0 +1,116 @@
+#!/usr/bin/python3
+# Abc.py
+class Calculator:
+    """A simple calculator class"""
+    def __init__(self, num1, num2):
+        self.set_num1(num1)
+        self.set_num2(num2)
+    # getters and setters, not really necessary for this
+    # project but good practice to keep em in there.
+    def set_num1(self, num1):
+        self.num1 = num1
+
+    def set_num2(self, num2):
+        self.num2 = num2
+
+    def get_num1(self):
+        return self.num1
+
+    def get_num2(self):
+        return self.num2
+    # basic calc methods below...
+    def add(self):
+        return self.get_num1() + self.get_num2()
+
+    def sub(self):
+        return self.get_num1() - self.get_num2()
+
+    def mult(self):
+        return self.get_num1() * self.get_num2()
+
+    def div(self):
+        # need to add zerodiverror fix. added inside main(). look below.
+        return self.get_num1() / self.get_num2()
+
+    def expo(self):
+        return self.get_num1() ** self.get_num2()
+   
+    def help(self):
+        h = '''Example:
+            =====================
+            > a     <- if you select a for add
+            ctrl-z to exit beyond this point->
+            > 1     <- you entered 1
+            > 1     <- you entered 1 again
+
+            1.0 + 1.0 = 2.0   <- answer output'''
+        return h
+
+def main():
+    print('abc V.1.0.0 (Another basic calculator)\n'\
+            'A Qwerty upgrade to bc (basic calculator)\n'\
+            'Created by CoderFortress')
+    action = ['add','sub','mult','div','pow',\
+                '+','-','*','/','**',\
+                'a','s','m','d','e','h']
+    print('action = a, s, m, d, e, h'
+    ' or q/quit to exit.')
+    answer = input('> ')
+    while answer != 'q' and answer != 'quit':
+        while answer in action:
+            if answer == 'h':
+                a = ''
+                b = ''
+                x = Calculator(a,b)
+                print(x.help())
+                answer = input('> ')
+                continue
+            print('ctrl-z to exit beyond this point->')
+            num1 = ''
+            while num1 != type(float):
+                try:
+                    num1 = float(input('> '))
+                    break
+                except:
+                    print('not a number')
+            num2 = ''
+            while num2 != type(float):
+                try:
+                    num2 = float(input('> '))
+                    break
+                except:
+                    print('not a number')
+            x = Calculator(num1, num2)
+            if answer == 'add' or answer == 'a' or answer == '+':
+                print(f'\n{num1} + {num2} = {x.add()}\n')
+            elif answer == 'sub' or answer == 's' or answer == '-':
+                print(f'\n{num1} - {num2} = {x.sub()}\n')
+            elif answer == 'mult' or answer == 'm' or answer == '*':
+                print(f'\n{num1} * {num2} = {x.mult()}\n')
+            elif answer == 'div' or answer == 'd' or answer == '/':
+                if num2 == 0 or num2 == 0.0:
+                    while num2 < 1:
+                        try:
+                            num2 = float(input('must be a number > than 0. '))
+                            continue
+                        except:
+                            print('not a number')
+                    x = Calculator(num1, num2)
+                print(f'\n{num1} / {num2} = {x.div()}\n')
+            elif answer == 'pow' or answer == 'e' or answer == '**':
+                print(f'\n{num1} ^ {num2} = {x.expo()}\n')
+            elif answer == 'h':
+                print(x.help())
+            print('abc V.1.0.0\nCreated by CoderFortress')
+            print('action = a, s, m, d, e, h'
+                ' or q/quit to exit.')
+            answer = input('> ')
+        if answer == 'quit' or answer == 'q':
+            print('goodbye')
+            exit()
+        print('not an action')
+        answer = input('> ')
+    print('goodbye')
+
+if __name__ == '__main__':
+    main()
